@@ -3,7 +3,7 @@
  * Run git commands, fetch commit history, and read staged changes.
  */
 
-export const DEFAULT_MAX_COMMITS = 10;
+export const DEFAULT_MAX_COMMITS = 50;
 
 import { execFileSync } from "node:child_process";
 import { mkdtempSync, rmSync, existsSync } from "node:fs";

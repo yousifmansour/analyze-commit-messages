@@ -11,11 +11,6 @@ export function isOneWordCommit(message: string): boolean {
   return message.trim().split(/\s+/).filter(Boolean).length <= 1;
 }
 
-export function isVagueCommit(e: CommitEvaluation): boolean {
-  if (typeof e.isVague === "boolean") return e.isVague;
-  return e.score <= 4 || !e.good;
-}
-
 export function printReport(commits: Commit[], evaluations: CommitEvaluation[]): void {
   const needWork = evaluations.filter((e) => !e.good);
   const wellWritten = evaluations.filter((e) => e.good);
@@ -62,7 +57,7 @@ export function printReport(commits: Commit[], evaluations: CommitEvaluation[]):
   const avg = evaluations.length
     ? evaluations.reduce((s, e) => s + e.score, 0) / evaluations.length
     : 0;
-  const vagueCount = evaluations.filter(isVagueCommit).length;
+  const vagueCount = evaluations.filter((evaluation) => Boolean(evaluation.isVague)).length;
   const oneWordCount = commits.filter((c) => isOneWordCommit(c.message)).length;
   const vaguePct = evaluations.length ? ((vagueCount / evaluations.length) * 100).toFixed(1) : "0";
   const oneWordPct = commits.length ? ((oneWordCount / commits.length) * 100).toFixed(1) : "0";
