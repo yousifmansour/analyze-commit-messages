@@ -5,7 +5,7 @@
 
 export const DEFAULT_MAX_COMMITS = 10;
 
-import { execSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import { mkdtempSync, rmSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -17,9 +17,12 @@ export interface Commit {
 }
 
 export function runGit(cwd: string, ...args: string[]): { stdout: string; stderr: string; code: number } {
-  const cmd = ["git", ...args].join(" ");
   try {
-    const stdout = execSync(cmd, { cwd, encoding: "utf-8", maxBuffer: DEFAULT_MAX_COMMITS * 1024 * 1024 });
+    const stdout = execFileSync("git", args, {
+      cwd,
+      encoding: "utf-8",
+      maxBuffer: DEFAULT_MAX_COMMITS * 1024 * 1024,
+    });
     return { stdout: stdout ?? "", stderr: "", code: 0 };
   } catch (e: unknown) {
     const err = e as { stdout?: string; stderr?: string; status?: number };

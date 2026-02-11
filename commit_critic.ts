@@ -3,7 +3,7 @@
  * Commit Critic — Analyze recent commits (remote or local repo) with GPT.
  *
  * Run:
- *   npx . analyze [--url URL] [-n N]
+ *   npx . --analyze [--url URL] [-n N]
  *   npx . write
  *
  * Requires OPENAI_API_KEY in the environment.
@@ -44,13 +44,13 @@ function printUsage(): void {
 Commit Critic — Analyze recent commits from a remote or local repo.
 
 Usage:
-  node commit_critic.ts analyze [options]
-  node commit_critic.ts analyze --url <URL> [options]
+  node commit_critic.ts --analyze [options]
+  node commit_critic.ts --analyze --url <URL> [options]
   node commit_critic.ts write
 
 Modes:
-  analyze                 Analyze the local repository
-  analyze --url URL       Analyze a remote repository
+  --analyze               Analyze the local repository
+  --analyze --url URL     Analyze a remote repository
   write                   Analyze current staged diff (suggests a commit message)
 
 Options:
